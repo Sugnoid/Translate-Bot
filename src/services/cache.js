@@ -4,6 +4,7 @@ const config = require('../config/config.json');
 
 class CacheService {
     constructor({ redisUrl, logger }) {
+        console.log(redisUrl)
         this.keyv = new Keyv(redisUrl);
         this.keyv.on('error', err => console.error('Keyv connection error:', err));
         this.logger = logger;
