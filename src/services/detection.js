@@ -21,8 +21,8 @@ class DetectionService {
         let cacheKey = this.cacheService.buildKey(serverId, messageId, 'detection', text)
         let cacheVal = this.cacheService.checkCache(cacheKey)
         console.log(`Cache contained: key=${cacheKey}, data="${cacheVal}"`)
-        let detection = await this.detectLang(text)
-        await this.cacheService.store(cacheKey, detection)
+        let detection = this.detectLang(text)
+        this.cacheService.store(cacheKey, detection)
         return detection
     }
 
