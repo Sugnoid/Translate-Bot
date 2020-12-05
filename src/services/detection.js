@@ -2,8 +2,8 @@ var langdetect = require('langdetect');
 var DetectLanguage = require('detectlanguage');
 
 class DetectionService {
-    constructor({ dl_key, cacheService }) {
-        this.detectLang = new DetectLanguage(dl_key);
+    constructor({ dlKey, cacheService }) {
+        this.detectLang = new DetectLanguage(dlKey);
         this.cacheService = cacheService;
     }
 

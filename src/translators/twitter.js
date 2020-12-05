@@ -77,8 +77,8 @@ async function translateAndSend(logger, translate, message, data) {
           return
         }
 
-        const cacheService = new CacheService(process.env.REDIS_TLS_URL, logger);
-        const detectionService = new DetectionService(process.env.DL_KEY, cacheService)
+        const cacheService = new CacheService({ redisUrl: process.env.REDIS_TLS_URL, logger: logger });
+        const detectionService = new DetectionService({ dlKey: process.env.DL_KEY, cacheService: cacheService })
 
         // Process language metadata and decide on source language
         // TODO: Maybe fix this later and see if we can smartly choose the source language without hitting detection API
