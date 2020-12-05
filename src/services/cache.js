@@ -13,13 +13,13 @@ class CacheService {
         return `${serverId}:${channelId}:${type}:${hash(object)}`
     }
 
-    checkCache(key) {
+    async checkCache(key) {
         let objectHash = hash(object)
         this.logger.debug(`Checking cache: key=${objectHash}`)
-        return this.keyv.get(objectHash)
+        return await this.keyv.get(objectHash)
     }
 
-    storeAndCheck(key, value, ttl) {
+    async storeAndCheck(key, value, ttl) {
         this.logger.debug(`Storing: key=${key}, value=${value}`);
         let isSet = await this.keyv.set(key, value, ttl);
         let storedValue = await this.keyv.get(key)
@@ -27,8 +27,8 @@ class CacheService {
         return isSet
     }
 
-    store(key, object) {
-        return this.storeAndCheck(key, object, config.cache.ttl);
+    async store(key, object) {
+        return await this.storeAndCheck(key, object, config.cache.ttl);
     }
 }
 

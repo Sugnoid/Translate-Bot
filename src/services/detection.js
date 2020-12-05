@@ -7,8 +7,8 @@ class DetectionService {
         this.cacheService = cacheService;
     }
 
-    detectLanguage(text) {
-        let res = this.detectLang.detect(text)
+    async detectLanguage(text) {
+        let res = await this.detectLang.detect(text)
         let lang = res[0].language
         if ( lang == 'iw') {
             return 'he'
@@ -17,12 +17,12 @@ class DetectionService {
         }
     }
 
-    detectLanguageCached(serverId, messageId, text) {
+    async detectLanguageCached(serverId, messageId, text) {
         let cacheKey = this.cacheService.buildKey(serverId, messageId, 'detection', text)
-        let cacheVal = this.cacheService.checkCache(cacheKey)
+        let cacheVal = await this.cacheService.checkCache(cacheKey)
         console.log(`Cache contained: key=${cacheKey}, data="${cacheVal}"`)
         let detection = this.detectLang(text)
-        this.cacheService.store(cacheKey, detection)
+        await this.cacheService.store(cacheKey, detection)
         return detection
     }
 
