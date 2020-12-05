@@ -4,6 +4,7 @@ var linkParser = require('../utils/link-parser');
 var iso6391 = require('iso-639-1');
 var Discord = require('discord.js');
 const DetectionService = require('../services/detection');
+const CacheService = require('./services/cache');
 
 /**
  * Setup twitter client so we can talk to twitter API
