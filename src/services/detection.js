@@ -19,10 +19,8 @@ class DetectionService {
 
     async detectLanguageCached(serverId, messageId, text) {
         let cacheKey = this.cacheService.buildKey(serverId, messageId, 'detection', text)
-        let cacheVal = await this.cacheService.checkCache(cacheKey)
-        console.log(`Cache contained: key=${cacheKey}, data="${cacheVal}"`)
+        console.log(`Cache contained: key=${cacheKey}, data=NOT_IMPLEMENTED`)
         let detection = this.detectLang(text)
-        await this.cacheService.store(cacheKey, detection)
         return detection
     }
 
