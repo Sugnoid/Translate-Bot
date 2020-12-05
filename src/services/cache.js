@@ -5,7 +5,7 @@ const config = require('../config/config.json');
 class CacheService {
     constructor({ redisUrl, logger }) {
         console.log(redisUrl)
-        this.redis = new redis(redisUrl);
+        this.redis = new redis.createClient(redisUrl);
         this.redis.on('error', err => console.error('redis connection error:', err));
         this.logger = logger;
     }
