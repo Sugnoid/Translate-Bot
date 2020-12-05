@@ -11,5 +11,8 @@
     "translation": {
         "twitter": true,
         "anyEmbed": true
+    },
+    "cache": {
+        "ttl": 14400
     }
 }

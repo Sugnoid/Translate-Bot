@@ -2,11 +2,12 @@ var langdetect = require('langdetect');
 var DetectLanguage = require('detectlanguage');
 
 class DetectionService {
-    constructor(dl_key) {
+    constructor({ dl_key, cacheService }) {
         this.detectLang = new DetectLanguage(dl_key);
+        this.cacheService = cacheService;
     }
 
-    async detectLanguage(text) {
+    detectLanguage(text) {
         let res = await this.detectLang.detect(text)
         let lang = res[0].language
         if ( lang == 'iw') {
@@ -14,6 +15,15 @@ class DetectionService {
         } else {
             return lang
         }
+    }
+
+    detectLanguageCached(serverId, messageId, text) {
+        let cacheKey = this.cacheService.buildKey(serverId, messageId, 'detection', text)
+        let cacheVal = this.cacheService.checkCache(cacheKey)
+        console.log(`Cache contained: key=${cacheKey}, data="${cacheVal}"`)
+        let detection = await this.detectLang(text)
+        await this.cacheService.store(cacheKey, detection)
+        return detection
     }
 
     isMaybeEnglishOffline(text) {

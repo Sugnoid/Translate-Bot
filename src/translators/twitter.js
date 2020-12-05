@@ -76,7 +76,8 @@ async function translateAndSend(logger, translate, message, data) {
           return
         }
 
-        const detectionService = new DetectionService(process.env.DL_KEY)
+        const cacheService = new CacheService(process.env.REDIS_TLS_URL, logger);
+        const detectionService = new DetectionService(process.env.DL_KEY, cacheService)
 
         // Process language metadata and decide on source language
         // TODO: Maybe fix this later and see if we can smartly choose the source language without hitting detection API
@@ -85,7 +86,11 @@ async function translateAndSend(logger, translate, message, data) {
         if (detectionService.isMaybeEnglishOffline(jsonResponse.full_text)) {
           possibleLang = 'en'
         } else {
-          possibleLang = await detectionService.detectLanguage(jsonResponse.full_text)
+          possibleLang = await detectionService.detectLanguageCached(
+            message.channel.guild.id,
+            message.channel.id,
+            jsonResponse.full_text
+          )
         }
         logger.debug(`[TWITTER] Language is suspected to be: ${possibleLang}`)
         if (possibleLang == 'en' || possibleLang == 'und') {

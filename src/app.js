@@ -6,6 +6,7 @@ var embedTranslator = require('./translators/embeds');
 const {Translate} = require('@google-cloud/translate').v2;
 const linkParser = require("./utils/link-parser");
 const RateLimitService = require('./services/rate-limiter');
+const CacheService = require('./services/cache');
 const { promisify } = require('util')
 const sleep = promisify(setTimeout)
 
