@@ -1,6 +1,6 @@
 const Keyv = require('keyv');
 const hash = require('object-hash');
-const config = require('./config/config.json');
+const config = require('../config/config.json');
 
 class CacheService {
     constructor({ redisUrl, logger }) {
