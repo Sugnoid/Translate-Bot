@@ -8,7 +8,7 @@ class DetectionService {
     }
 
     detectLanguage(text) {
-        let res = await this.detectLang.detect(text)
+        let res = this.detectLang.detect(text)
         let lang = res[0].language
         if ( lang == 'iw') {
             return 'he'
