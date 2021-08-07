@@ -24,7 +24,7 @@ const twitter = new Twitter({
  */
 //TODO Support multiple links by putting all links into an array
 function getDistinctTwitterLinksInContent(msgContent) {
-    var regex = /^(?!\>).*https:\/\/(?:www\.)?(?:mobile\.)?twitter\.com\/(?<handle>[a-zA-Z0-9_]+)\/status\/(?<status_id>[0-9]+)/gm
+    var regex = /^(?!\>).*https:\/\/(?:www\.)?(?:mobile\.)?(fx)?twitter\.com\/(?<handle>[a-zA-Z0-9_]+)\/status\/(?<status_id>[0-9]+)/gm
     let matches = []
     while((matchItem = regex.exec(msgContent)) != null) {
       matches.push(matchItem.groups)
